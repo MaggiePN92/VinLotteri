@@ -15,7 +15,9 @@ def data():
     if request.method == 'POST':
         form_data = request.form
         lotto.handle_form_data(form_data)
-        return render_template('data.html', form_data=form_data)
+        lottery_dict = lotto.get_lottery_dict()
+        #return render_template('data.html', form_data=form_data)
+        return render_template('data_table.html', lottery_dict=lottery_dict)
 
 if __name__ == "__main__":
     app.run()#host='localhost', port=5000, debug=True)
