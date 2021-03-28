@@ -6,8 +6,16 @@ class Lottery:
         self.list_of_players   = []
         self.total_tickets     = 0
 
-    def _add_player_to_lottery(self, immutable_multi_dict):
-        name, nr_tickets = self._read_form_dict(immutable_multi_dict)
+    def handle_form_data(self, immutable_multi_dict):
+        form_dict = immutable_multi_dict.to_dict()
+        #print(form_dict)
+        for i in range(1,7):
+            name       = form_dict.get("Navn"+str(i))
+            if name == '': break
+            nr_tickets = int(form_dict.get("lodd"+str(i)))
+            self._add_player_to_lottery(name, nr_tickets)
+
+    def _add_player_to_lottery(self, name, nr_tickets):
         new_player       = Player(name, nr_tickets, self.total_tickets)
         self.list_of_players.append(new_player)
         self.total_tickets += nr_tickets

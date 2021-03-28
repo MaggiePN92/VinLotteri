@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 app = Flask(__name__)
-from flaskr.Lotteri import Lotteri
-lotto = Lotteri()
+from flaskr.Lottery import Lottery
+lotto = Lottery()
 
 @app.route('/form')
 def form():
@@ -14,9 +14,7 @@ def data():
         return f"The URL /data is accessed directly. Try going to '/form' to submit form"
     if request.method == 'POST':
         form_data = request.form
-
-        #form_dict = form_data.to_dict()
-        #name, nr_tickets = form_dict['Navn'], form_dict['Antall lodd']
+        lotto.handle_form_data(form_data)
         return render_template('data.html', form_data=form_data)
 
 if __name__ == "__main__":
